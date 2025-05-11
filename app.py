@@ -14,7 +14,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-
 class Todo(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -24,7 +23,6 @@ class Todo(db.Model):
 
     def __repr__(self):
         return f"<{self.sno}> {self.title}"
-
 
 @app.route("/", methods=["GET", "POST"])
 def hello_world():
