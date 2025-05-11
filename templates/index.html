@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="mb-4" id="add-todo">
+        <div class="card shadow-sm p-4">
+            <form action="/" method="POST">
+                <h4 class="mb-4">Add a Todo</h4>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Todo Title</label>
+                    <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Todo Description </label>
+                    <input type="text" class="form-control" id="desc" name="desc">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%"
+        data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-4 rounded-2" tabindex="0">
+    </div>
+
+    <div class="mt-4" id="todo-list">
+        <h4 class="mb-3">Your Todos</h4>
+        {% if allTodo|length == 0 %}
+            <div class="no-todos-message">
+                No Todos found. Add your first todo now!
+            </div>
+        {% else %}
+            <div class="card shadow-sm p-3">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">sn.no</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for Todo in allTodo %}
+                            <tr>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>{{ Todo.title }}</td>
+                                <td>{{ Todo.desc }}</td>
+                                <td>{{ Todo.date_created }}</td>
+                                <td>
+                                    <a href="/update/{{ Todo.sno }} " type="button" class="btn btn-outline-dark btn-sm mx-1">Update</a>
+                                    <a href="/delete/{{ Todo.sno }} " type="button" class="btn btn-outline-dark btn-sm mx-1">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
